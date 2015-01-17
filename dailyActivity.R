@@ -1,3 +1,5 @@
+library (plyr)
+
 dailyActivity <- function (stepData) {
   stepsPerInterval <- ddply (stepData,
                              .(interval), 
