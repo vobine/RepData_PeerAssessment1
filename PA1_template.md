@@ -108,3 +108,33 @@ With imputed | 1.0766189\times 10^{4} | 1.0766189\times 10^{4}
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+First, let's distinguish weekdays from weekends.
+
+
+```r
+wd <- weekdays (as.Date (fixie$date))
+fixie$dayTypes <- factor (wd,
+                          levels <- c ('weekday', 'weekend'))
+fixie$dayTypes[] <- 'weekday'
+fixie$dayTypes[wd %in% c ('Saturday', 'Sunday')] <- 'weekend'
+```
+
+Now, compute summaries and plot the two:
+
+
+```r
+library (lattice)
+spi <- ddply (fixie,
+              .(interval, dayTypes), 
+              summarize, 
+              stepMean = mean(steps, na.rm=TRUE))
+xyplot (stepMean ~ interval | dayTypes, 
+        data=spi,
+        type='l',
+        layout=c (1, 2))
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
+
+Conclusion: the subjects slept later on weekends. Good on 'em!
