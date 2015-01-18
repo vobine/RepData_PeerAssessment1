@@ -96,13 +96,7 @@ hist (fixieSPD$stepSum,
       breaks=13)
 ```
 
-The outliers at the low end have gone away, which makes intuitive sense. Summary statistics also show this change in steps per day:
-
-Data set  | Mean | Median
--- | -- | --
-Raw only | `r mean (spd$stepSum, na.rm=TRUE)` | `r median (spd$stepSum, na.rm=TRUE)`
-With imputed | `r mean (fixieSPD$stepSum)` | `r median (fixieSPD$stepSum)`
-
+The outliers at the low end have gone away, which makes intuitive sense. Summary statistics also show this change in steps per day. Raw-only mean steps per day is `r mean (spd$stepSum, na.rm=TRUE)`; with imputed values added the mean is  `r mean (fixieSPD$stepSum)`. Raw-only median is `r median (spd$stepSum, na.rm=TRUE)` steps per day, median with imputed values is `r median (fixieSPD$stepSum)` steps a day.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 

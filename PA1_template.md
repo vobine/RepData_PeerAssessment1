@@ -105,13 +105,7 @@ hist (fixieSPD$stepSum,
 
 ![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
 
-The outliers at the low end have gone away, which makes intuitive sense. Summary statistics also show this change in steps per day:
-
-Data set  | Mean | Median
--- | -- | --
-Raw only | 9354.2295082 | 10395
-With imputed | 1.0766189\times 10^{4} | 1.0766189\times 10^{4}
-
+The outliers at the low end have gone away, which makes intuitive sense. Summary statistics also show this change in steps per day. Raw-only mean steps per day is 9354.2295082; with imputed values added the mean is  1.0766189\times 10^{4}. Raw-only median is 10395 steps per day, median with imputed values is 1.0766189\times 10^{4} steps a day.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
