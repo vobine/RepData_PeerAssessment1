@@ -37,7 +37,7 @@ hist (spd$stepSum, breaks=13)
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
-The subject took a mean of `{r} mean (spd$stepSum)` steps and median of `{r}median (spd$stepSum)` steps per day.
+The subject took a mean of 9354.2295082 steps and median of 10395 steps per day.
 
 ## What is the average daily activity pattern?
 
@@ -61,7 +61,7 @@ plot (spi$interval, spi$stepMean, type='l')
 ![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
 
 The busiest interval of the subject's day, on average was
-`{r} spi$interval[which.max (spi$stepMean)]`.
+835.
 
 ## Imputing missing values
 
@@ -71,8 +71,8 @@ which <- is.na (acts$steps)
 ```
 
 The data set comprises many missing step count values: a total of
-`{r} sum (which)`, or
-`{r} 100.0 * sum (which) / length (which)`
+2304, or
+13.1147541
 percent of the total.
 
 We use a two-stage strategy for imputing missing values to the data. First, we replace an NA at interval `i` with the mean number of steps in that interval over the rest of the data set. Unfortunately, many intervals are NA over the entire series; for those we impute the grand mean over all non-NA data.
@@ -89,13 +89,22 @@ fixie$steps[is.na (fixie$steps)] <-
 Fixed! Did it change anything? Here's the new histogram:
 
 ```r
-hist (ddply (fixie,
-              .(date), 
-              summarize, 
-              stepSum=sum (steps))$stepSum,
+fixieSPD <- ddply (fixie,
+                   .(date), 
+                   summarize, 
+                   stepSum=sum (steps))
+hist (fixieSPD$stepSum,
       breaks=13)
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
+
+The outliers at the low end have gone away, which makes intuitive sense. Summary statistics also show this change in steps per day:
+
+Data set  | Mean | Median
+-- | -- | --
+Raw only | 9354.2295082 | 10395
+With imputed | 1.0766189\times 10^{4} | 1.0766189\times 10^{4}
+
 
 ## Are there differences in activity patterns between weekdays and weekends?

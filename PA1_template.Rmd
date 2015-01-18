@@ -36,7 +36,7 @@ Display the result.
 hist (spd$stepSum, breaks=13)
 ```
 
-The subject took a mean of `{r} mean (spd$stepSum)` steps and median of `{r}median (spd$stepSum)` steps per day.
+The subject took a mean of `r mean (spd$stepSum)` steps and median of `r median (spd$stepSum)` steps per day.
 
 ## What is the average daily activity pattern?
 
@@ -56,7 +56,7 @@ plot (spi$interval, spi$stepMean, type='l')
 ```
 
 The busiest interval of the subject's day, on average was
-`{r} spi$interval[which.max (spi$stepMean)]`.
+`r spi$interval[which.max (spi$stepMean)]`.
 
 ## Imputing missing values
 
@@ -65,8 +65,8 @@ which <- is.na (acts$steps)
 ```
 
 The data set comprises many missing step count values: a total of
-`{r} sum (which)`, or
-`{r} 100.0 * sum (which) / length (which)`
+`r sum (which)`, or
+`r 100.0 * sum (which) / length (which)`
 percent of the total.
 
 We use a two-stage strategy for imputing missing values to the data. First, we replace an NA at interval `i` with the mean number of steps in that interval over the rest of the data set. Unfortunately, many intervals are NA over the entire series; for those we impute the grand mean over all non-NA data.
@@ -81,15 +81,20 @@ fixie$steps[is.na (fixie$steps)] <-
 
 Fixed! Did it change anything? Here's the new histogram:
 ```{r}
-hist (ddply (fixie,
-              .(date), 
-              summarize, 
-              stepSum=sum (steps))$stepSum,
+fixieSPD <- ddply (fixie,
+                   .(date), 
+                   summarize, 
+                   stepSum=sum (steps))
+hist (fixieSPD$stepSum,
       breaks=13)
 ```
-The outliers at the low end have gone away, which makes intuitive sense.
 
-Steps per day, before and after:
+The outliers at the low end have gone away, which makes intuitive sense. Summary statistics also show this change in steps per day:
+
+Data set  | Mean | Median
+-- | -- | --
+Raw only | `r mean (spd$stepSum, na.rm=TRUE)` | `r median (spd$stepSum, na.rm=TRUE)`
+With imputed | `r mean (fixieSPD$stepSum)` | `r median (fixieSPD$stepSum)`
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
