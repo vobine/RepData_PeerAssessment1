@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
+<meta name="author" content="Hal Peterson" />
 
 
 <title>Reproducible Research: Peer Assessment 1</title>
@@ -61,10 +62,16 @@ img {
 
 <div id="header">
 <h1 class="title">Reproducible Research: Peer Assessment 1</h1>
+<h4 class="author"><em>Hal Peterson</em></h4>
 </div>
 
 
-<pre class="r"><code>library (plyr)</code></pre>
+<div id="preamble" class="section level2">
+<h2>Preamble</h2>
+<p>Load useful libraries.</p>
+<pre class="r"><code>library (plyr)
+library (lattice)</code></pre>
+</div>
 <div id="loading-and-preprocessing-the-data" class="section level2">
 <h2>Loading and preprocessing the data</h2>
 <p>Assignment data set is included in the Git repository, forked from <a href="https://github.com/rdpeng/RepData_PeerAssessment1">https://github.com/rdpeng/RepData_PeerAssessment1</a>, in the file activity.zip. In my repository I’ve manually unpacked that to activity.csv. Load it:</p>
@@ -145,8 +152,7 @@ fixie$dayTypes &lt;- factor (wd,
 fixie$dayTypes[] &lt;- 'weekday'
 fixie$dayTypes[wd %in% c ('Saturday', 'Sunday')] &lt;- 'weekend'</code></pre>
 <p>Now, compute summaries and plot the two:</p>
-<pre class="r"><code>library (lattice)
-spi &lt;- ddply (fixie,
+<pre class="r"><code>spi &lt;- ddply (fixie,
               .(interval, dayTypes), 
               summarize, 
               stepMean = mean(steps, na.rm=TRUE))

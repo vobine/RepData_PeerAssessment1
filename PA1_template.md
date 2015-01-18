@@ -1,8 +1,14 @@
 # Reproducible Research: Peer Assessment 1
+Hal Peterson  
+
+## Preamble
+
+Load useful libraries.
 
 
 ```r
 library (plyr)
+library (lattice)
 ```
 
 ## Loading and preprocessing the data
@@ -124,7 +130,6 @@ Now, compute summaries and plot the two:
 
 
 ```r
-library (lattice)
 spi <- ddply (fixie,
               .(interval, dayTypes), 
               summarize, 

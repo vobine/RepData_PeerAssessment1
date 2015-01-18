@@ -1,12 +1,19 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
+author: Hal Peterson
+
 output: 
   html_document:
     keep_md: true
 ---
 
+## Preamble
+
+Load useful libraries.
+
 ```{r}
 library (plyr)
+library (lattice)
 ```
 
 ## Loading and preprocessing the data
@@ -112,7 +119,6 @@ fixie$dayTypes[wd %in% c ('Saturday', 'Sunday')] <- 'weekend'
 Now, compute summaries and plot the two:
 
 ```{r}
-library (lattice)
 spi <- ddply (fixie,
               .(interval, dayTypes), 
               summarize, 
